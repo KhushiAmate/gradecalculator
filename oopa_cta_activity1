@@ -1,0 +1,252 @@
+package gui.project.java;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+import javax.swing.text.AbstractDocument.Content;
+
+class IAException extends Exception {
+	public String tostring() {
+		return "Marks are invalid";
+	}
+}
+
+class CtaException extends Exception {
+	public String tostring() {
+		return "Student is detained";
+	}
+}
+
+class Form extends JFrame implements ActionListener {
+
+	Container ContentPane;
+	JButton b;
+	JPanel p, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12;
+	JLabel l, m1, m2, m3, cta, see, t, g, l1, l2;
+	JTextField tf1, tf2, tf3, tf4, tf5;
+
+	public Form(String title) {
+
+		super.setTitle("STUDENT GRADING SYSTEM");
+		ContentPane = this.getContentPane();
+
+		// setLayout(new FlowLayout());
+		p = new JPanel();
+		p8 = new JPanel();
+		p.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		p8.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		p.setBackground(Color.LIGHT_GRAY);
+		p8.setBackground(Color.LIGHT_GRAY);
+		p.setBounds(75, 50, 300, 40);
+		l = new JLabel("GRADE CALCULATOR");
+		p.add(l);
+		p8.add(p);
+
+		// IA 1
+		p1 = new JPanel();
+		p1.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		p1.setBackground(Color.LIGHT_GRAY);
+		p1.setBounds(75, 125, 300, 30);
+		m1 = new JLabel("Enter the IA-1 marks =  ");
+		p1.add(m1);
+		tf1 = new JTextField(10);
+		p1.add(tf1);
+
+		// IA 2
+		p2 = new JPanel();
+		p2.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		p2.setBackground(Color.LIGHT_GRAY);
+		p2.setBounds(75, 155, 300, 30);
+		m2 = new JLabel("Enter the IA-2 marks =  ");
+		p2.add(m2);
+		tf2 = new JTextField(10);
+		p2.add(tf2);
+
+		// IA 3
+		p3 = new JPanel();
+		p3.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		p3.setBackground(Color.LIGHT_GRAY);
+		p3.setBounds(75, 185, 300, 30);
+		m3 = new JLabel("Enter the IA-3 marks =  ");
+		p3.add(m3);
+		tf3 = new JTextField(10);
+		p3.add(tf3);
+
+		// CTA
+		p4 = new JPanel();
+		p4.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		p4.setBackground(Color.LIGHT_GRAY);
+		p4.setBounds(75, 215, 300, 30);
+		cta = new JLabel("Enter the CTA marks =  ");
+		p4.add(cta);
+		tf4 = new JTextField(10);
+		p4.add(tf4);
+
+		// SEE
+		p5 = new JPanel();
+		p5.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		p5.setBackground(Color.LIGHT_GRAY);
+		p5.setBounds(75, 245, 300, 30);
+		see = new JLabel("Enter the SEE marks =  ");
+		p5.add(see);
+		tf5 = new JTextField(10);
+		p5.add(tf5);
+
+		p6 = new JPanel();
+		p6.setBounds(120, 290, 200, 50);
+		b = new JButton("Calculate");
+		p6.add(b);
+		b.setSize(300, 300);
+		b.addActionListener(this);
+
+		p7 = new JPanel();
+		p7.setBounds(100, 350, 150, 20);
+		t = new JLabel("Total marks=");
+		p7.add(t);
+
+		p9 = new JPanel();
+		p9.setBounds(100, 370, 150, 40);
+		g = new JLabel("Grade=");
+		p9.add(g);
+
+		p10 = new JPanel();
+		p10.setBounds(180, 350, 150, 40);
+		l1 = new JLabel();
+		p10.add(l1);
+
+		p11 = new JPanel();
+		p11.setBounds(180, 370, 150, 40);
+		l2 = new JLabel();
+		p11.add(l2);
+		p12 = new JPanel();
+		p12.add(p11);
+
+		this.add(p);
+		this.add(p1);
+		this.add(p2);
+		this.add(p3);
+		this.add(p4);
+		this.add(p5);
+		this.add(p6);
+		this.add(p7);
+		this.add(p9);
+		this.add(p8);
+
+		this.add(p10);
+		this.add(p11);
+		this.add(p12);
+	}
+
+	int cie = 0;
+	int total;
+
+	public int Marks() {
+		int ia1 = Integer.parseInt(tf1.getText());
+		int ia2 = Integer.parseInt(tf2.getText());
+		int ia3 = Integer.parseInt(tf3.getText());
+		int cta1 = Integer.parseInt(tf4.getText());
+		int see1 = Integer.parseInt(tf5.getText());
+
+		try {
+			if (ia1 > 20 || ia1 < 0)
+				throw new IAException();
+		} catch (IAException me1) {
+			JOptionPane.showMessageDialog(this, "Marks are invalid");
+		}
+		try {
+			if (ia2 > 20 || ia2 < 0)
+				throw new IAException();
+		} catch (IAException me1) {
+			JOptionPane.showMessageDialog(this, "Marks are invalid");
+			System.exit(EXIT_ON_CLOSE);
+		}
+		try {
+			if (ia3 > 20 || ia3 < 0)
+				throw new IAException();
+		} catch (IAException me1) {
+			JOptionPane.showMessageDialog(this, "Marks are invalid");
+			System.exit(EXIT_ON_CLOSE);
+		}
+
+		if (see1 % 2 != 0)
+			see1 = (see1 / 2) + 1;
+		else
+			see1 = see1 / 2;
+
+		if (see1 == 39 || see1 == 38)
+			see1 = 40;
+
+		int high = ia1 + ia2;
+		int sum2 = ia2 + ia3;
+		int sum3 = ia1 + ia3;
+		if (high < sum2) {
+			high = sum2;
+			if (high < sum3) {
+				high = sum3;
+			}
+		}
+		cie = high + cta1;
+		try {
+			if (cie < 20)
+				throw new CtaException();
+		} catch (CtaException se) {
+			JOptionPane.showMessageDialog(this, "Student is detained");
+			System.exit(EXIT_ON_CLOSE);
+		}
+		total = cie + see1;
+		return total;
+	}
+
+	int s() {
+		int see1 = Integer.parseInt(tf5.getText());
+		return see1;
+	}
+
+	char grade(int total, int see1) {
+
+		char g = 0;
+		if (see1 < 38 || total < 20)
+			g = 'F';
+		else {
+			if (total <= 100 && total >= 90)
+				g = 'S';
+
+			if (total <= 89 && total > 80)
+				g = 'A';
+
+			if (total <= 79 && total > 70)
+				g = 'B';
+
+			if (total <= 69 && total > 60)
+				g = 'C';
+
+			if (total <= 59 && total >= 50)
+				g = 'D';
+
+			if (total <= 49 && total >= 40)
+				g = 'E';
+		}
+		return g;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		// setLayout(new FlowLayout());
+		l1.setText("" + Marks());
+		l2.setText("" + grade(Marks(), s()));
+	}
+}
+
+public class StudentGradingSystemDemo {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		JFrame f = new Form("STUDENT GRADING SYSTEM");
+		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		f.setBounds(450, 100, 460, 500);
+		f.getContentPane().setBackground(Color.GRAY);
+		f.setVisible(true);
+	}
+}
